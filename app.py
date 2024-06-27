@@ -10,19 +10,23 @@ seen in real time on save and refresh
 
 from spacy_streamlit import visualize_ner
 import streamlit as st
-import spacy
+import utils
 
-DEFAULT_TEXT = "Sundar Pichai is the CEO of Google."
+DEFAULT_TEXT = """CELLULAR COMMUNICATIONS INC. sold 1,550,000 common shares at $21.75 each yesterday, \
+    according to lead underwriter L.F. Rothschild & Co.
+"""
 
-MODEL = "en_core_web_sm"
+MODELS = ["en_core_web_sm", "en_core_web_md", "en_core_web_lg", "en_core_web_trf"]
 
 st.title("Learn Natural Language Processing Concepts")
 
-model_selection = st.text(f"Model name {MODEL}")
+model_selection = st.sidebar.selectbox("Choose a model", MODELS, 0)
 
-nlp = spacy.load(MODEL)
+st.markdown(f"Selected model: **`{model_selection}`**")
 
-input_text = st.text_area("Enter text to be analysed", DEFAULT_TEXT, height = 200)
+nlp = utils.load_models(model_selection)
+
+input_text = st.text_area("Enter text to be analysed", DEFAULT_TEXT, height = 100)
 
 doc = nlp(input_text)
 
