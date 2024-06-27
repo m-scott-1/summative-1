@@ -18,9 +18,9 @@ MODEL = "en_core_web_sm"
 
 st.title("Learn Natural Language Processing Concepts")
 
-model_selection = st.text(f"Model name: {MODEL}")
+model_selection = st.text(f"Model name {MODEL}")
 
-nlp = spacy.load(model_selection)
+nlp = spacy.load(MODEL)
 
 input_text = st.text_area("Enter text to be analysed", DEFAULT_TEXT, height = 200)
 
