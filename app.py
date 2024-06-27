@@ -14,11 +14,11 @@ import spacy
 
 DEFAULT_TEXT = "Sundar Pichai is the CEO of Google."
 
-MODELS = ["en_core_web_sm", "en_core_web_md"]
+MODEL = "en_core_web_sm"
 
 st.title("Learn Natural Language Processing Concepts")
 
-model_selection = st.selectbox("Model name", MODELS)
+model_selection = st.text(f"Model name: {MODEL}")
 
 nlp = spacy.load(model_selection)
 
