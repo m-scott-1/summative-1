@@ -1,6 +1,6 @@
 streamlit
 pandas
-numpy==1.26.4,<2.0.0
+numpy==1.26.4
 spacy>=3.0.0,<4.0.0
-spacy-streamlit>=1.0.0rc1,<1.1.0
+spacy-streamlit>=1.0.0
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl#egg=en_core_web_sm==3.0.0
