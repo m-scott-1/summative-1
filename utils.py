@@ -15,7 +15,7 @@ nltk.download("punkt")
 @st.cache_data
 def load_models(model):
     """
-    Load required SpaCy models
+    Load required SpaCy model with streamlit error handling 
     """
     try:
         nlp = spacy.load(model)
@@ -28,56 +28,65 @@ def load_models(model):
     return nlp
 # end
 
-def spacy_token_annotator(doc, model):
+def tokenise_text(doc, model: str) -> list[str]:
     """
-    Create data structure whilst annotating text to conform to annotated_text input
+    Given a tokenisation model, take a string as input and output a list of
+    strings based on the tokenisation method of that model
     """
 
+    model_selection = ["spacy_word", "spacy_sent", "nltk_whitespace",
+                       "nltk_treebank", "nltk_twitter", "nltk_punkt"]
+
+    assert model in model_selection, st.error(f"Incorrect model name. Choose from: {model_selection}")
+
+    if model == "spacy_word":
+        token_list = [str(token) for token in doc]
+    if model == "spacy_sent":
+        token_list = [str(token) for token in doc.sents]
+    if model == "nltk_whitespace":
+        token_list = [str(token) for token in WhitespaceTokenizer().tokenize(doc.text)]
+    if model == "nltk_treebank":
+        token_list = [str(token) for token in TreebankWordTokenizer().tokenize(doc.text)]
+    if model == "nltk_twitter":
+        token_list = [str(token) for token in TweetTokenizer().tokenize(doc.text)]
+    if model == "nltk_punkt":
+        token_list = [str(token) for token in PunktSentenceTokenizer().tokenize(doc.text)]
+    
+    return token_list
+# end
+
+def token_annotator(doc, model: str) -> list[tuple[str]]:
+    """
+    Annotate a list of strings with hex colours in a format conforming to
+    the accepted input for the annotated_text package
+    """
+    
     colours = ["#8ef", "#faa", "#afa", "#fea", "#faf", "#baf", "#f83", "#0aa"]
-    a_counter = 0
+    counter = 0
     annotate = []
-    if model == "word":
-        for token in doc:
-            annotate.append((str(token), "", colours[a_counter]))
-            a_counter +=1
-            if a_counter == len(colours):
-                a_counter = 0
-
-    elif model == "sent":
-        for token in doc.sents:
-            annotate.append((str(token), "", colours[a_counter]))
-            a_counter +=1
-            if a_counter == len(colours):
-                a_counter = 0
+    token_list = tokenise_text(doc, model)
+    for token in token_list:
+        annotate.append((str(token), "", colours[counter]))
+        counter +=1
+        if counter == len(colours):
+            counter = 0
 
     return annotate
 # end
 
-def nltk_token_annotator(text, model):
+def pos_table(doc) -> pd.DataFrame:
     """
-    Create data structure whilst annotating text to conform to annotated_text input
+    Create a DataFrame object that takes each token in a 
+    SpaCy doc object and tags them with different parts of speech
     """
 
-    colours = ["#8ef", "#faa", "#afa", "#fea", "#faf", "#baf", "#f83", "#0aa"]
-    a_counter = 0
-    annotate = []
+    df = pd.DataFrame({
+        "Text": [token.text for token in doc],
+        "Lemma": [token.lemma_ for token in doc],
+        "POS": [token.pos_ for token in doc],
+        "POS explained": [spacy.explain(token.pos_) for token in doc],
+        "Dependency": [token.dep_ for token in doc]
+    })
 
-    if model == "whitespace":
-        tk = WhitespaceTokenizer()
-    if model == "treebank":
-        tk = TreebankWordTokenizer()
-    if model == "twitter":
-        tk = TweetTokenizer()
-    if model == "punkt":
-        tk = PunktSentenceTokenizer()
-
-    doc = tk.tokenize(text)
-
-    for token in doc:
-        annotate.append((str(token), "", colours[a_counter]))
-        a_counter +=1
-        if a_counter == len(colours):
-            a_counter = 0
-
-    return annotate
+    return df
 # end
