@@ -21,8 +21,6 @@ MODELS = ["en_core_web_sm", "en_core_web_md"]
 
 st.title("Learn Natural Language Processing Concepts")
 
-st.set_page_config(page_title="Learn Natural Language Processing Concepts")
-
 st.markdown("""
     This streamlit app is designed to help teach NLP concepts through 
     **experiential learning**. You can edit the text included in the textbox, 
