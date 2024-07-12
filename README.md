@@ -86,11 +86,11 @@ This view gave me a high-level view of the project from its start to end date an
 ## Accessibility
 I used the Google-developed Chrome Developers Tool Lighthouse to test the accessibility of my app. An initial benchmark of the accessibility of my app showed I had room to improve the default accessibility features baked into Streamlit's UI:
 
-![Lighthouse accessibility benchmark](img/lighthouse_benchmark.png "Lighthouse accessibility benchmark")
+![Lighthouse accessibility benchmark](img/lighthouse_testing.png "Lighthouse accessibility benchmark")
 
 In an attempt to improve the accessibility of my app, I first followed the steps outlined by web.dev for conducting a [manual accessibility audit](https://web.dev/articles/how-to-review?utm_source=lighthouse&utm_medium=devtools). I tested how tab navigation worked in the app to make sure I could reach everything that was interactive, and that the focus rings on different elements of the page were clear. I then moved on to checking the colour contrast using the aXe chrome extension. I found that three areas of my app did not meet minimum colour contrast specifications when the default light Streamlit theme was applied. a) and b) would require a custom Streamlit theme to edit them but c) was created by me in my `annotate_text` function and would be easy to change:
 
-![Image contrast example](img/contrast_examples.png "Image contrast example")
+![Image contrast example](img/contrast_check.png "Image contrast example")
 
 I still have some room to improve in my app's accessibility. This is something I intend to do for future work. I have created Issues to capture these improvements which are currently active.
 
