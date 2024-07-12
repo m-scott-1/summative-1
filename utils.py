@@ -61,7 +61,7 @@ def token_annotator(doc, model: str) -> list[tuple[str]]:
     the accepted input for the annotated_text package
     """
     
-    colours = ["#8ef", "#faa", "#afa", "#fea", "#faf", "#baf", "#f83", "#0aa"]
+    colours = ["#8ef", "#faa", "#afa", "#fea", "#faf", "#baf", "#f83", "#00aeb9"]
     counter = 0
     annotate = []
     token_list = tokenise_text(doc, model)

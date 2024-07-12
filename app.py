@@ -21,6 +21,24 @@ MODELS = ["en_core_web_sm", "en_core_web_md"]
 
 st.title("Learn Natural Language Processing Concepts")
 
+st.set_page_config(page_title="Learn Natural Language Processing Concepts")
+
+st.markdown("""
+    This streamlit app is designed to help teach NLP concepts through 
+    **experiential learning**. You can edit the text included in the textbox, 
+    press enter, and see how different NLP tokenisation algorithms would 
+    split that text into tokens. Use the radio buttons to change between models.
+            
+    Check out the two sentence tokenisers, spacy_sent and nltk_punkt. Add a second
+    sentence to the input text. How do the two sentence tokenisaiton algorithms differ?
+    What happens when you add a semi colon between the two sentences?
+        
+    The second tab 'Part of Speech Tagging' produces a dataframe of 
+    each token and some of the parts of speech SpaCy tags that token with.
+    You can see an example of how POS tagging is used in **Named Entity 
+    Recognition** below the dataframe.
+""")
+
 model_selection = st.sidebar.selectbox("Choose a model", MODELS, 0)
 
 st.sidebar.markdown(f"Selected SpaCy model: **`{model_selection}`**")
